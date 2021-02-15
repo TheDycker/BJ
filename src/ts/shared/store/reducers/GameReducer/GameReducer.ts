@@ -107,7 +107,7 @@ export const gameReducer = (state: Game, action: Action) => {
       return {
         ...state,
         bet: newBet,
-        bank: newBank
+        bank: newBank,
       };
     case "SET_CONTINUE_GAME":
       return {
@@ -122,6 +122,7 @@ export const gameReducer = (state: Game, action: Action) => {
         isStarted: action.payload.isStarted,
         isPlaying: action.payload.isPlaying,
         round: action.payload.round,
+        round_list: action.payload.round_list
       };
     case "CHANGE_ROUND":
       return {
@@ -134,10 +135,26 @@ export const gameReducer = (state: Game, action: Action) => {
         round: 0,
       };
     case "SET_ROUND_LIST":
-      let newRoundList: any[] = [...state.round_list, action.payload];
+      let newRoundList: any[] = [
+        ...state.round_list,
+        {
+          player_cards: state.player_cards,
+          player_cards_value: state.player_cards_value,
+          dealer_cards: state.dealer_cards,
+          dealer_cards_value: state.dealer_cards_value,
+          round: state.round,
+          bank: state.bank,
+          bet: state.bet,
+        },
+      ];
       return {
         ...state,
         round_list: newRoundList,
+      };
+      case "CLEAR_ROUND_LIST":
+      return {
+        ...state,
+        round_list: [],
       };
     default:
       return state;

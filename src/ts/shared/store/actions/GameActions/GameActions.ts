@@ -70,7 +70,7 @@ export const wonGame = (
   betAmount: number,
   bankAmount: number
 ) => {
-  let newBankAmount: number = bankAmount + (betAmount + (betAmount * 1.5));
+  let newBankAmount: number = bankAmount + (betAmount + betAmount * 1.5);
   try {
     clearGame(dispatch);
     dispatch({ type: "SET_BANK", payload: newBankAmount });
@@ -91,6 +91,7 @@ export const drawGame = (
 
 export const clearGame = (dispatch: any) => {
   try {
+    dispatch({ type: "SET_ROUND_LIST" });
     dispatch({ type: "SET_BET", payload: 0 });
     dispatch({ type: "CLEAR_PLAYER_CARDS_VALUE", payload: 0 });
     dispatch({ type: "CLEAR_DEALER_CARDS_VALUE", payload: 0 });
@@ -115,9 +116,9 @@ export const drawCards = (
         let cards_value: number = 0;
         cards.cards.map((card: any) => {
           if (card.value === "ACE") {
-            if(cards_value === 11 || cardsValue > 11){
+            if (cards_value === 11 || cardsValue > 11) {
               cards_value = cards_value + 1;
-            }else {
+            } else {
               cards_value = cards_value + 11;
             }
           } else if (
@@ -152,6 +153,7 @@ export const resetGame = (dispatch: any, deck_id: string) => {
     clearRound(dispatch);
     dispatch({ type: "SET_IS_PLAYING", payload: false });
     shuffleCards(deck_id);
+    dispatch({ type: "CLEAR_ROUND_LIST" });
   } catch (err) {}
 };
 

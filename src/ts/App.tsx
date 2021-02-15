@@ -29,6 +29,7 @@ interface IGame {
   player_cards: [];
   player_cards_value: number;
   round: number;
+  round_list: [];
 }
 
 const App: FunctionComponent<{}> = (props) => {
@@ -47,6 +48,7 @@ const App: FunctionComponent<{}> = (props) => {
     player_cards: [],
     player_cards_value: 0,
     round: 0,
+    round_list: []
   });
   window.addEventListener("beforeunload", (ev) => {
     ev.preventDefault();
@@ -80,14 +82,14 @@ const App: FunctionComponent<{}> = (props) => {
         return <RankItem key={index} rank={rank} index={index} />;
       });
   }
-  let modaRanking: any = (
+  let modalRanking: any = (
     <Modal
       onOpenRanking={openRanking}
       changeOpenRanking={() => setOpenRanking(!openRanking)}
     >
       <Fragment>
         <div className="d-flex justify-content-center">
-          <h1 style={{ textAlign: "center" }}>TOP HISTORIC RESULTS</h1>
+          <h1 style={{ textAlign: "center" }}>Top Historic Results</h1>
         </div>
         <ul className="list-group">{rankContent}</ul>
       </Fragment>
@@ -111,13 +113,14 @@ const App: FunctionComponent<{}> = (props) => {
               player_cards: [],
               player_cards_value: 0,
               round: 0,
+              round_list: []
             })
           }
           changeOpenRanking={() => setOpenRanking(!openRanking)}
         ></Game>
       ) : (
         <div className="mainPage container-fluid d-flex justify-content-center align-items-center">
-          {modaRanking}
+          {modalRanking}
           <button
             className="btn btn-light mt-6 mr-2"
             onClick={() => setGame(dispatch)}

@@ -27,6 +27,7 @@ import Modal from "../../components/Modal/Modal";
 import { addResult } from "./../../shared/store/actions/RankingActions/RankingActions";
 import Cards from "../../components/Cards/Cards";
 import useMessageHandler from "../../shared/hooks/useMessageHandler";
+import RoundHistoryItem from "../../components/RoundHistoryItem/RoundHistoryItem";
 
 const Game: FunctionComponent<{
   changeOpenRanking: any;
@@ -35,6 +36,7 @@ const Game: FunctionComponent<{
   const game = useGlobalState("game");
   const dispatch = useDispatch();
   const { message, showMessage } = useMessageHandler(null);
+  const [openRoundHistory, setOpenRoundHistory] = useState(false);
   const [bankAmount, setBankAmount] = useState(game.bank);
   const [betAmount, setBetAmount] = useState(game.bet);
   const [isStand, setIsStand] = useState(false);
@@ -265,9 +267,60 @@ const Game: FunctionComponent<{
     }
   }
 
+  let roundHistoryContent: any;
+  let roundHistoryLength: any;
+  if (game.round_list.length === 0) {
+    roundHistoryContent = (
+      <p style={{ textAlign: "center", margin: 0 }}>No results</p>
+    );
+  } else {
+    roundHistoryContent = game.round_list.map((round: any, index: any) => {
+      return <RoundHistoryItem key={index} round={round} />;
+    });
+  }
+  roundHistoryLength = game.round_list.map((round: any, index: any) => {
+    return <th scope="col">{index + 1}</th>;
+  });
+
+  let modalRoundHistory: any = (
+    <Modal
+      onOpenRanking={openRoundHistory}
+      changeOpenRanking={() => setOpenRoundHistory(!openRoundHistory)}
+    >
+      <Fragment>
+        <div className="d-flex justify-content-center">
+          <h1 style={{ textAlign: "center" }}>Round History</h1>
+        </div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Bet</th>
+              <th scope="col">Bank</th>
+              <th scope="col">P_Cards</th>
+              <th scope="col">D_Cards</th>
+            </tr>
+          </thead>
+          <tbody>{roundHistoryContent}</tbody>
+        </table>
+      </Fragment>
+    </Modal>
+  );
+
   return (
     <div className="game d-flex justify-content-center align-items-center">
       <div className="container">
+        {modalRoundHistory}
+        {game.round_list.length !== 0 && !game.isPlaying ? (
+          <div className="d-flex justify-content-center">
+            <button
+              className="btn btn-light mr-1"
+              onClick={() => setOpenRoundHistory(!openRoundHistory)}
+            >
+              Round History
+            </button>
+          </div>
+        ) : null}
         <div className="d-flex justify-content-center">
           <p className="m-1" style={{ color: "white" }}>
             BANK: {bankAmount}$
