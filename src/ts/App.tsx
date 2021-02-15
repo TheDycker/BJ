@@ -70,12 +70,15 @@ const App: FunctionComponent<{}> = (props) => {
     return b - a;
   });
   let rankContent: any;
-  if (rankList.length===0) {
+  if (rankList.length === 0) {
     rankContent = <p style={{ textAlign: "center", margin: 0 }}>No results</p>;
   } else {
-    rankContent = rankList.slice(0, 10).map((rank: any, index: any) => {
-      return <RankItem key={index} rank={rank} index={index} />;
-    });
+    rankContent = rankList
+      .filter((item: any, index: any) => rankList.indexOf(item) === index)
+      .slice(0, 10)
+      .map((rank: any, index: any) => {
+        return <RankItem key={index} rank={rank} index={index} />;
+      });
   }
   let modaRanking: any = (
     <Modal
