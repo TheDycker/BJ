@@ -1,0 +1,53 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Libraries
+@import "node_modules/bootstrap/scss/bootstrap";
+
+// Variables
+@import "variables";
+
+// Pages
+
+// Components
+@import "components/UI/Backdrop/Backdrop";
+@import "components/UI/Spinner/Spinner";
+
+// Partials
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+}
+.mainPage {
+  background: url("../images/background-start.jpg") fixed center no-repeat;
+  background-size: cover;
+  height: 100vh;
+  max-width: 100%;
+}
+// @media (max-width: 982px) {
+//   .mainPage {
+//     background-image: url("../images/background-start.jpg");
+//     max-width: 100%;
+//     height: auto;
+//   }
+// }
+
+.game {
+  background: url("../images/background-game.jpg") fixed center no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.mt-6 {
+  margin-top: 6rem !important;
+}
