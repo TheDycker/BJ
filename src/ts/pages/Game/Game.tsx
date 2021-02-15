@@ -297,8 +297,8 @@ const Game: FunctionComponent<{
               <th scope="col">#</th>
               <th scope="col">Bet</th>
               <th scope="col">Bank</th>
-              <th scope="col">P_Cards</th>
-              <th scope="col">D_Cards</th>
+              <th scope="col">Player Cards</th>
+              <th scope="col">Dealer Cards</th>
             </tr>
           </thead>
           <tbody>{roundHistoryContent}</tbody>
