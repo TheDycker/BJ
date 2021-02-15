@@ -44,3 +44,16 @@ body {
 .mt-6 {
   margin-top: 6rem !important;
 }
+
+.modal-p {
+  margin: 0;
+  &.modal-p__text {
+    text-align: center;
+  }
+}
+.text-white {
+  color: white;
+}
+.text-center {
+  text-align: "center";
+}

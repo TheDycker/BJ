@@ -25,16 +25,28 @@ const Cards: FunctionComponent<{
 
   const onDoubleDown = () => {
     setDoubleBet(dispatch);
-    drawCards(1, game.deck_id, dispatch, "SET_PLAYER_CARDS", game.player_cards_value);
+    drawCards(
+      1,
+      game.deck_id,
+      dispatch,
+      "SET_PLAYER_CARDS",
+      game.player_cards_value
+    );
     props.onIsStandChange();
   };
 
   useEffect(() => {
     if (isDrawing) {
-      drawCards(1, game.deck_id, dispatch, "SET_PLAYER_CARDS", game.player_cards_value);
+      drawCards(
+        1,
+        game.deck_id,
+        dispatch,
+        "SET_PLAYER_CARDS",
+        game.player_cards_value
+      );
       setTimeout(() => {
         setIsDrawing(false);
-      }, 1000)
+      }, 1000);
     }
   }, [isDrawing]);
 
@@ -68,25 +80,15 @@ const Cards: FunctionComponent<{
   }
   content = (
     <Fragment>
-      <p style={{ textAlign: "center", color: "white", margin: 0 }}>
-        Dealer Cards
-      </p>
+      <p className="modal-p modal-p__text text-white">Dealer Cards</p>
       {props.isStand ? (
-        <p
-          className="m-1"
-          style={{ textAlign: "center", color: "white", margin: 0 }}
-        >
+        <p className="modal-p modal-p__text m-1 text-white">
           Dealer cards value: {game.dealer_cards_value}
         </p>
       ) : null}
       <div className="d-flex justify-content-center">{dealer_cards}</div>
-      <p style={{ textAlign: "center", color: "white", margin: 0 }}>
-        Player Cards
-      </p>
-      <p
-        className="m-1"
-        style={{ textAlign: "center", color: "white", margin: 0 }}
-      >
+      <p className="modal-p modal-p__text text-white">Player Cards</p>
+      <p className="modal-p modal-p__text m-1 text-white">
         Player cards value: {game.player_cards_value}
       </p>
       <div className="d-flex justify-content-center">{player_cards}</div>

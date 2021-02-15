@@ -271,7 +271,7 @@ const Game: FunctionComponent<{
   let roundHistoryLength: any;
   if (game.round_list.length === 0) {
     roundHistoryContent = (
-      <p style={{ textAlign: "center", margin: 0 }}>No results</p>
+      <p className="modal-p modal-p__text">No results</p>
     );
   } else {
     roundHistoryContent = game.round_list.map((round: any, index: any) => {
@@ -289,7 +289,7 @@ const Game: FunctionComponent<{
     >
       <Fragment>
         <div className="d-flex justify-content-center">
-          <h1 style={{ textAlign: "center" }}>Round History</h1>
+          <h1 className="text-center">Round History</h1>
         </div>
         <table className="table">
           <thead>
@@ -322,14 +322,14 @@ const Game: FunctionComponent<{
           </div>
         ) : null}
         <div className="d-flex justify-content-center">
-          <p className="m-1" style={{ color: "white" }}>
+          <p className="m-1 text-white">
             BANK: {bankAmount}$
           </p>
-          <p className="m-1" style={{ color: "white" }}>
+          <p className="m-1 text-white">
             BET: {game.bet === 0 ? betAmount : game.bet}$
           </p>
           {game.isPlaying ? (
-            <p className="m-1" style={{ color: "white" }}>
+            <p className="m-1 text-white">
               Round: {game.round}
             </p>
           ) : null}
@@ -337,7 +337,7 @@ const Game: FunctionComponent<{
         {content}
         {isEndRound ? (
           <Modal onOpenRanking={true} changeOpenRanking={() => {}}>
-            <p style={{ textAlign: "center" }}>{message}</p>
+            <p className="text-center">{message}</p>
           </Modal>
         ) : null}
       </div>
