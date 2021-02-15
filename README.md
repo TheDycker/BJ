@@ -6,6 +6,7 @@ Blackjack game
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [GitHub Pages Setup](#GitHub-Pages-Setup)
+* [Author](#Author)
 
 ## General info
 This project is blackjack a card game that pits player versus dealer.
@@ -33,3 +34,6 @@ To put this project on GH, install it using npm:
 $ npm install
 $ npm run deploy
 ```
+
+## Author
+Created by Przemysław Skrzyniarz
