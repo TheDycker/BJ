@@ -147,9 +147,9 @@ const Game: FunctionComponent<{
       shuffleCards(game.deck_id);
       addResult(dispatch, game.bank);
       setGame(dispatch);
-      clearRound(dispatch);
       props.onSetLastGame();
       props.changeOpenRanking();
+      clearRound(dispatch);
     }
   }, [game.isPlaying]);
 
@@ -169,9 +169,9 @@ const Game: FunctionComponent<{
         localStorage.removeItem("lastGame");
         shuffleCards(game.deck_id);
         setGame(dispatch);
-        clearRound(dispatch);
         props.onSetLastGame();
         resetBank(dispatch);
+        clearRound(dispatch);
       }, 3000);
     }
   }, [game.isPlaying]);

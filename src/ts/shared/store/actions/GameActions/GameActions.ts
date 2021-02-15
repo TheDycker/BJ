@@ -30,6 +30,7 @@ export const setGame = (dispatch: any) => {
 export const clearRound = (dispatch: any) => {
   try {
     dispatch({ type: "CLEAR_ROUND" });
+    dispatch({ type: "CLEAR_ROUND_LIST" });
   } catch (err) {}
 };
 
