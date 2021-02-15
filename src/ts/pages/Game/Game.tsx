@@ -27,6 +27,7 @@ import Modal from "../../components/Modal/Modal";
 import { addResult } from "./../../shared/store/actions/RankingActions/RankingActions";
 import Cards from "../../components/Cards/Cards";
 import useMessageHandler from "../../shared/hooks/useMessageHandler";
+
 const Game: FunctionComponent<{
   changeOpenRanking: any;
   onSetLastGame: any;
@@ -96,22 +97,6 @@ const Game: FunctionComponent<{
   }, []);
 
   useEffect(() => {
-    if (!game.isPlaying && game.round === 5) {
-      shuffleCards(game.deck_id);
-      addResult(dispatch, game.bank);
-      setGame(dispatch);
-      clearRound(dispatch);
-      props.onSetLastGame();
-      props.changeOpenRanking();
-    }
-  }, [game.isPlaying]);
-
-  useEffect(() => {
-    setBankAmount(game.bank);
-    setBetAmount(game.bet);
-  }, [game.bet, game.bank]);
-
-  useEffect(() => {
     if (game.player_cards_value === 21) {
       setIsStand(true);
       if (game.player_cards_value !== game.dealer_cards_value) {
@@ -126,7 +111,14 @@ const Game: FunctionComponent<{
   }, [game.player_cards_value]);
 
   useEffect(() => {
-    if (isStand && game.player_cards_value < 21) {
+    if (isStand && game.dealer_cards_value > 21) {
+      onWin();
+    }
+    if (
+      isStand &&
+      game.player_cards_value < 21 &&
+      game.dealer_cards_value <= 21
+    ) {
       if (
         game.dealer_cards_value < 17 &&
         game.dealer_cards_value < game.player_cards_value
@@ -145,12 +137,24 @@ const Game: FunctionComponent<{
       } else {
         onLost();
       }
-      if (game.dealer_cards_value > 21) {
-        setIsStand(true);
-        onWin();
-      }
     }
   }, [game.dealer_cards_value, isStand]);
+
+  useEffect(() => {
+    if (!game.isPlaying && game.round === 5) {
+      shuffleCards(game.deck_id);
+      addResult(dispatch, game.bank);
+      setGame(dispatch);
+      clearRound(dispatch);
+      props.onSetLastGame();
+      props.changeOpenRanking();
+    }
+  }, [game.isPlaying]);
+
+  useEffect(() => {
+    setBankAmount(game.bank);
+    setBetAmount(game.bet);
+  }, [game.bet, game.bank]);
 
   useEffect(() => {
     if (game.bank < 25 && !game.isPlaying && !isStand) {
@@ -171,11 +175,6 @@ const Game: FunctionComponent<{
   }, [game.isPlaying]);
 
   useEffect(() => {
-    console.log("FIRST IF ", game.player_cards.length);
-    // if (
-    //   (game.isPlaying && !props.isContinue) ||
-    //   (game.isPlaying && game.player_cards.length === 0)
-    // )
     if (game.isPlaying && game.player_cards.length === 0) {
       drawCards(
         2,
@@ -200,9 +199,9 @@ const Game: FunctionComponent<{
     content = (
       <Fragment>
         <div className="d-flex justify-content-center">
-          {bankAmount <= 500 ? (
+          {bankAmount < 500 ? (
             <button
-              className="btn btn-light mr-2"
+              className="btn btn-light mr-1"
               disabled={bankAmount < 25 ? true : false}
               onClick={() => changeBetAndBankValue(25)}
             >
@@ -211,33 +210,40 @@ const Game: FunctionComponent<{
           ) : null}
 
           <button
-            className="btn btn-light mr-2"
+            className="btn btn-light mr-1"
             disabled={bankAmount < 50 ? true : false}
             onClick={() => changeBetAndBankValue(50)}
           >
             50$
           </button>
           <button
-            className="btn btn-light mr-2"
+            className="btn btn-light mr-1"
             disabled={bankAmount < 100 ? true : false}
             onClick={() => changeBetAndBankValue(100)}
           >
             100$
           </button>
-          {bankAmount > 500 ? (
+          {bankAmount >= 500 ? (
             <button
-              className="btn btn-light mr-2"
+              className="btn btn-light mr-1"
               disabled={bankAmount < 500 ? true : false}
               onClick={() => changeBetAndBankValue(500)}
             >
               500$
             </button>
           ) : null}
-          <button className="btn btn-light mr-2" onClick={() => clearBet()}>
+          <button
+            className="btn btn-light mr-1"
+            disabled={bankAmount === 0 ? true : false}
+            onClick={() => changeBetAndBankValue(bankAmount)}
+          >
+            Bet All
+          </button>
+          <button className="btn btn-light mr-1" onClick={() => clearBet()}>
             Clear Bet
           </button>
           <button
-            className="btn btn-light mr-2"
+            className="btn btn-light mr-1"
             disabled={betAmount <= 0 ? true : game.isPlaying ? true : false}
             onClick={() => setIsPlaying(dispatch, true)}
           >

@@ -2,9 +2,10 @@ import axios from "../../../../axios-orders";
 
 export const addResult = (dispatch: any, result: number) => {
   try {
-    dispatch({ type: "ADD_RESULT", payload: result });
-    localStorage.removeItem('lastGame');
-    //dispatch({ type: "SET_DECK", payload: "" });
+    if (result !== 0) {
+      dispatch({ type: "ADD_RESULT", payload: result });
+    }
+    localStorage.removeItem("lastGame");
     dispatch({ type: "SET_BANK", payload: 1000 });
   } catch (err) {
     console.log("tryCatch setGame BLAD " + err);
