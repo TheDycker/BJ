@@ -8,7 +8,6 @@ export const addResult = (dispatch: any, result: number) => {
     localStorage.removeItem("lastGame");
     dispatch({ type: "SET_BANK", payload: 1000 });
   } catch (err) {
-    console.log("tryCatch setGame BLAD " + err);
   }
 };
 
@@ -16,6 +15,5 @@ export const setRanking = (dispatch: any, ranking: any) => {
   try {
     dispatch({ type: "SET_RANKING", payload: ranking });
   } catch (err) {
-    console.log("tryCatch setGame BLAD " + err);
   }
 };

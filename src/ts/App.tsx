@@ -65,8 +65,6 @@ const App: FunctionComponent<{}> = (props) => {
   useEffect(() => {
     let newRanking: any = localStorage.getItem("ranking");
     setRanking(dispatch, JSON.parse(newRanking));
-    // setRanking(dispatch, []);
-    // localStorage.removeItem("ranking");
   }, []);
   let rankList: any = ranking.bestResults.sort((a, b) => {
     return b - a;

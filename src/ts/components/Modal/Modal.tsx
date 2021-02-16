@@ -1,4 +1,4 @@
-import React, { Fragment, FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 
@@ -20,7 +20,6 @@ const SimpleModal: FunctionComponent<{
   changeOpenRanking: any;
 }> = (props) => {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
 
   let body: any = (
     <div className="d-flex justify-content-center">
